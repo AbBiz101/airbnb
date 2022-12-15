@@ -21,7 +21,6 @@ type LiveAnywhereSection = {
 	img: string;
 	title: string;
 };
-
 type Props = {
 	exploreData: ExploreSection[];
 	liveAnywhereData: LiveAnywhereSection[];
@@ -83,7 +82,6 @@ export async function getStaticProps() {
 			'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias, similique!',
 		buttonText: 'Get Inspired',
 	};
-
 	const exploreData = [
 		{
 			img: '/img_1.jpg',
@@ -163,7 +161,6 @@ export async function getStaticProps() {
 	// const exploreData = await fetch('https://links.papareact.com/pyp')
 	// 	.then((res) => res.json())
 	// 	.then((data) => console.log(data));
-
 	return {
 		props: {
 			exploreData,

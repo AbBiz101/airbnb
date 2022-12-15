@@ -1,16 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
+	MenuIcon,
 	SearchIcon,
 	GlobeAltIcon,
-	MenuIcon,
 	UserCircleIcon,
 	UsersIcon,
 } from '@heroicons/react/solid';
-
+import 'react-date-range/dist/styles.css';
+import { DateRangePicker } from 'react-date-range';
+import 'react-date-range/dist/theme/default.css';
 type Props = {};
 
 export default function Header({}: Props) {
+	const [userInput, setUserInput] = useState('');
+	const [startDate, setStartDate] = useState('');
+	const [endDate, setSEndDate] = useState('');
+	const selectedRange = {
+		key: 'Selection',
+		startDate: startDate,
+		endDate: endDate,
+	};
+	useEffect(() => {
+		console.log(userInput);
+	}, [userInput]);
 	return (
 		<header className="sticky items-center grid grid-cols-3 p-5 md:px-10 top-0 z-50 bg-white shadow-md ">
 			<div className="relative items-center hidden md:inline-flex h-10 cursor-pointer mx-0 my-auto">
@@ -27,6 +40,8 @@ export default function Header({}: Props) {
 
 			<div className="flex items-center col-start-1 col-span-2 md:col-span-1 md:col-start-2 py-1 md:py-0 border-2 md:shadow-sm rounded-full">
 				<input
+					value={userInput}
+					onChange={(e) => setUserInput(e.target.value)}
 					type="text"
 					className="pl-5 flex-grow text-sm text-gray-600 placeholder-gray-400 bg-transparent outline-none"
 					placeholder="start your search"
@@ -42,6 +57,12 @@ export default function Header({}: Props) {
 					<UserCircleIcon className="h-7 cursor-pointer" />
 				</div>
 			</div>
+
+			{userInput && (
+				<div>
+					<DateRangePicker ranges={[selectedRange]} />
+				</div>
+			)}
 		</header>
 	);
 }

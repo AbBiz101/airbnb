@@ -8,22 +8,23 @@ type Props = {};
 export default function search({}: Props) {
 	const router = useRouter();
 	const { location, startDate, endDate, guestInput } = router.query;
-	
-	//const formatedStartDate2 = format(new Date(), 'dd MMMM yy');
-	//const formatedStartDate = format(new Date(startDate), 'dd MMMM yy');
-	//const formatedEndDate = format(new Date(endDate), 'dd MMMM yy');
-	//console.log(new Date(), startDate);
 
+	const formatStartDate =
+		startDate && format(new Date(startDate.toString()), 'dd MMMM yy');
+	const formatEndDate =
+		endDate && format(new Date(endDate.toString()), 'dd MMMM yy');
+
+	const placeholder = `${location} from ${formatStartDate}  to ${formatEndDate} ${guestInput}`;
 	return (
 		<div>
-			<Header />
+			<Header placeholder={placeholder} />
 			<main>
 				<section className="bg-red-200 flex-grow pt-14 px-6">
 					{location && (
 						<>
 							<p className="text-xs">
-								200+ Stays {startDate}- {endDate} - for
-								{guestInput} of guests.
+								200+ Stays from {formatStartDate} to {formatEndDate} for
+								{guestInput} guests.
 							</p>
 							<h1 className="text-3xl font-semibold mt-2 mb-6">
 								Stay in {location}.

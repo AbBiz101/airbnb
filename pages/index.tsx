@@ -38,7 +38,7 @@ export default function Home({
 				<title>airbnb</title>
 				<link rel="icon" href="/airbnb.png" />
 			</Head>
-			<Header />
+			<Header/>
 			<Banner />
 			<main className="max-w-7xl px-8 sm:px-16 mx-auto">
 				<section className="pt-6">

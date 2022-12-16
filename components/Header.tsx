@@ -11,9 +11,9 @@ import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-type Props = {};
+type Props = { placeholder: string };
 
-export default function Header({}: Props) {
+export default function Header({ placeholder }: Props) {
 	const [userInput, setUserInput] = useState('');
 	const [guestInput, setGuestInput] = useState<any | number>(1);
 	const [startDate, setStartDate] = useState(new Date());
@@ -47,9 +47,7 @@ export default function Header({}: Props) {
 		setEndDate(ranges.selection.endDate);
 	};
 
-	useEffect(() => {
-		
-	}, [userInput]);
+	useEffect(() => {}, [userInput]);
 	return (
 		<header className="sticky items-center grid grid-cols-3 p-5 md:px-10 top-0 z-50 bg-white shadow-md ">
 			<div className="relative items-center hidden md:inline-flex h-10  mx-0 my-auto">
@@ -71,7 +69,7 @@ export default function Header({}: Props) {
 					onChange={(e) => setUserInput(e.target.value)}
 					type="text"
 					className="pl-5 flex-grow text-sm text-gray-600 placeholder-gray-400 bg-transparent outline-none"
-					placeholder="start your search"
+					placeholder={placeholder ? placeholder : 'start your search'}
 				/>
 				<SearchIcon className="h-8 hidden md:inline-flex text-white bg-red-400 rounded-full p-1 cursor-pointer md:m-1" />
 			</div>

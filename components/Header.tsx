@@ -11,7 +11,7 @@ import 'react-date-range/dist/theme/default.css';
 import { DateRangePicker } from 'react-date-range';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-type Props = { placeholder: string };
+type Props = { placeholder?: string };
 
 export default function Header({ placeholder }: Props) {
 	const [userInput, setUserInput] = useState('');

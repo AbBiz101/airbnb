@@ -6,6 +6,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@badrap/bar-of-progress": "^0.2.2",
+    "@badrap/valita": "^0.1.9",
     "@heroicons/react": "1.0.6",
     "@types/date-fns": "^2.6.0",
     "@types/react-date-range": "^1.4.4",

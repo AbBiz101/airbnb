@@ -14,7 +14,7 @@ export default function search({}: Props) {
 	const formatEndDate =
 		endDate && format(new Date(endDate.toString()), 'dd MMMM yy');
 
-	const placeholder = `${location} from ${formatStartDate}  to ${formatEndDate} ${guestInput}`;
+	const placeholder = `${location} | ${formatStartDate} - ${formatEndDate} | ${guestInput}`;
 	return (
 		<div>
 			<Header placeholder={placeholder} />

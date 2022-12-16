@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
 	MenuIcon,
@@ -8,27 +7,55 @@ import {
 	UsersIcon,
 } from '@heroicons/react/solid';
 import 'react-date-range/dist/styles.css';
-import { DateRangePicker } from 'react-date-range';
 import 'react-date-range/dist/theme/default.css';
+import { DateRangePicker } from 'react-date-range';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 type Props = {};
 
 export default function Header({}: Props) {
 	const [userInput, setUserInput] = useState('');
-	const [startDate, setStartDate] = useState('');
-	const [endDate, setSEndDate] = useState('');
-	const selectedRange = {
-		key: 'Selection',
+	const [guestInput, setGuestInput] = useState<any | number>(1);
+	const [startDate, setStartDate] = useState(new Date());
+	const [endDate, setEndDate] = useState(new Date());
+	const router = useRouter();
+
+	const selectionRange = {
+		key: 'selection',
 		startDate: startDate,
 		endDate: endDate,
 	};
+
+	const resetInput = () => {
+		setUserInput('');
+	};
+
+	const handleSearch = () => {
+		router.push({
+			pathname: '/search',
+			query: {
+				location: userInput,
+				startDate: startDate.toISOString(),
+				endDate: endDate.toISOString(),
+				guestInput,
+			},
+		});
+	};
+
+	const handleSelection = (ranges: any) => {
+		setStartDate(ranges.selection.startDate);
+		setEndDate(ranges.selection.endDate);
+	};
+
 	useEffect(() => {
-		console.log(userInput);
+		
 	}, [userInput]);
 	return (
 		<header className="sticky items-center grid grid-cols-3 p-5 md:px-10 top-0 z-50 bg-white shadow-md ">
-			<div className="relative items-center hidden md:inline-flex h-10 cursor-pointer mx-0 my-auto">
+			<div className="relative items-center hidden md:inline-flex h-10  mx-0 my-auto">
 				<Image
-					className="hidden md:inline-flex"
+					onClick={() => router.push('/')}
+					className="hidden md:inline-flex cursor-pointer"
 					src="/airbnb-logo.png"
 					alt="logo"
 					width={120}
@@ -59,8 +86,34 @@ export default function Header({}: Props) {
 			</div>
 
 			{userInput && (
-				<div>
-					<DateRangePicker ranges={[selectedRange]} />
+				<div className="flex flex-col col-span-3 mx-auto mt-5">
+					<DateRangePicker
+						ranges={[selectionRange]}
+						minDate={new Date()}
+						rangeColors={['#FD5B61']}
+						onChange={handleSelection}
+					/>
+					<div className="flex items-center border-b mb-4">
+						<h2 className="text-2xl flex-grow font-semibold">
+							Number of Guests
+						</h2>
+						<UsersIcon className="h-5 " />
+						<input
+							className="w-12 pl-2 text-lg outline-none text-red-400"
+							type="number"
+							min={1}
+							value={guestInput}
+							onChange={(e) => setGuestInput(e.target.value)}
+						/>
+					</div>
+					<div className="flex">
+						<button onClick={resetInput} className="flex-grow text-gray-500">
+							Cancel
+						</button>
+						<button onClick={handleSearch} className="flex-grow text-red-500">
+							Search
+						</button>
+					</div>
 				</div>
 			)}
 		</header>
